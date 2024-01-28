@@ -1,0 +1,16 @@
+import sqlite3
+from datetime import datetime
+connection = sqlite3.connect('weather_database_2.db')
+cursor = connection.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS weather (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date_time DATETIME,
+        temperature FLOAT
+    )
+''')
+current_date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+current_temperature = 4.
+cursor.execute('INSERT INTO weather (date_time, temperature) VALUES (?, ?)', (current_date_time, current_temperature))
+connection.commit()
+connection.close()
